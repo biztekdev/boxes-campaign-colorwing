@@ -33,7 +33,7 @@ function BannerCom({ data }) {
               className="object-contain max-h-full w-auto"
               style={{ position: "relative" }}
             />
-          </div>
+          </div>x``
 
           <div className="flex gap-4 mt-6">
             {data?.images?.map((item, index) => (

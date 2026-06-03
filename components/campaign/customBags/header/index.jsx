@@ -22,8 +22,8 @@ const CustomBagsHeader = () => {
   }
 
   return (
-    <div className='px-[20px] sm:px-[35px] md:px-20 pt-[20px]'>
-      <div className='flex gap-[10px] items-center justify-between'>
+    <div className='px-[20px] sm:px-[35px] md:px-20 pt-[20px] bg-white'>
+      <div className='flex gap-[10px] items-center justify-between '>
         <div className='hidden md:block'>
           <Link href="/">
             <Image

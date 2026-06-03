@@ -43,14 +43,14 @@ const CompaignFooter = dynamic(() => import("./footer"), {
 
 function CustomBagsCom({ data }) {
   return (
-    <div>
+    <div className="bg-white">
       <CustomBagsHeader />
       
       <div
         id="custom-quote-form"
-        className="flex m-auto px-4 md:px-10 2xl:px-20 gap-6 mt-10 lg:flex-row flex-col scroll-mt-20"
+        className="flex m-auto px-4 md:px-10 2xl:px-20 gap-6 mt-10 bg-white lg:flex-row flex-col scroll-mt-20"
       >
-        <div className="lg:w-[50%] xl:w-[60%] 2xl:w-[60%] ">
+        <div className="lg:w-[50%] xl:w-[60%] 2xl:w-[60%] bg-white">
           <BannerCom data={data?.bannerData} />
         </div>
         <div className="lg:w-[50%] xl:w-[40%] 2xl:w-[40%]">
@@ -65,7 +65,9 @@ function CustomBagsCom({ data }) {
       <Finishes data={data?.finishes} />
       <Testimonials data={data?.testimonials} />
       <FaqSection data={data?.faqs} />
-      <CompaignFooter />
+     
+       <CompaignFooter />
+    
     </div>
   );
 }
