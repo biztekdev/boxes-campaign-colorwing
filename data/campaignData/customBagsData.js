@@ -144,69 +144,69 @@ export const customBagsData = {
   materials: [
     {
       id: 1,
-      image: '/campaign/custom-bags/materials/Rectangle 5.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle 5.webp',
       title: 'White Cardboard',
     },
     {
       id: 2,
-      image: '/campaign/custom-bags/materials/Rectangle5-1.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle5-1.webp',
       title: 'Kraft',
     },
     {
       id: 3,
-      image: '/campaign/custom-bags/materials/Rectangle5-2.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle5-2.webp',
       title: 'Metallic Cardboard',
     },
     {
       id: 4,
-      image: '/campaign/custom-bags/materials/Rectangle5-3.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle5-3.webp',
       title: 'Holographic',
     },
     {
       id: 5,
-      image: '/campaign/custom-bags/materials/Rectangle5-4.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle5-4.webp',
       title: 'E-Flute Corrugated',
     },
     {
       id: 6,
-      image: '/campaign/custom-bags/materials/Rectangle5-5.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle5-5.webp',
       title: 'Paperboard',
     },
   ],
   finishes: [
     {
       id: 1,
-      image: '/campaign/custom-bags/finishes/Rectangle5.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5.webp',
       title: 'Gloss',
     },
     {
       id: 2,
-      image: '/campaign/custom-bags/finishes/Rectangle5-1.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5-1.webp',
       title: 'Matte',
     },
     {
       id: 3,
-      image: '/campaign/custom-bags/finishes/Rectangle5-2.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5-2.webp',
       title: 'Soft Touch',
     },
     {
       id: 4,
-      image: '/campaign/custom-bags/finishes/Rectangle5-3.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5-3.webp',
       title: 'Spot UV',
     },
     {
       id: 5,
-      image: '/campaign/custom-bags/finishes/Rectangle5-4.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5-4.webp',
       title: 'Inside Printing',
     },
     {
       id: 6,
-      image: '/campaign/custom-bags/finishes/Rectangle5-5.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5-5.webp',
       title: 'Window',
     },
     {
       id: 7,
-      image: '/campaign/custom-bags/finishes/Rectangle5-6.webp',
+      image: '/campaign/custom-bags/Finishes/Rectangle5-6.webp',
       title: 'Spot Foil',
     },
   ],
