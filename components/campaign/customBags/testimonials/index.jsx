@@ -43,7 +43,7 @@ const Testimonials = ({data}) => {
                 <div className="bg-white border border-[#777777] rounded-xl p-5 sm:p-6 md:p-7 lg:p-8 flex flex-col shadow-sm md:min-h-[350px] lg:min-h-[380px]  xl:min-h-[370px]  2xl:min-h-[280px]">
                   <div className="flex gap-1 mb-4 sm:mb-5">
                     {[...Array(testimonial.rating)].map((_, index) => (
-                      <Image key={index} src="/icons/Review star.svg" alt="star" width={20} height={20} className="w-5 h-5" />
+                      <Image key={index} src="/icons/review-star.svg" alt="star" width={20} height={20} className="w-5 h-5" />
                     ))}
                   </div>
                   <p className="text-base sm:text-lg md:text-xl font-bold text-black mb-3 sm:mb-4 leading-snug">
@@ -54,7 +54,7 @@ const Testimonials = ({data}) => {
                   </p>
                   {testimonial.verified && (
                     <div className="flex items-center gap-2 mt-auto">
-                      <Image src="/icons/verified buyer.png" alt="Verified Buyer" width={120} height={24} />
+                      <Image src="/icons/verified-buyer.png" alt="Verified Buyer" width={120} height={24} />
                     </div>
                   )}
                 </div>

@@ -71,7 +71,7 @@ const CompaignFooter = () => {
           </p>
           <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 sm:gap-3">
             <span className="text-[#FFFFFF] text-xs sm:text-sm">We Accept All Major Cards</span>
-            <Image src="/campaign/Footer/payment mathod.png" alt="Payment Methods" width={200} height={30} />
+            <Image src="/campaign/Footer/payment-method.png" alt="Payment Methods" width={200} height={30} />
           </div>
         </div>
       </div>

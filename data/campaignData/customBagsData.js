@@ -19,35 +19,35 @@ export const customBagsData = {
     products: [
       {
         id: 1,
-        image: "/campaign/custom-bags/influence/Rectangle%2052.webp",
+        image: "/campaign/custom-bags/influence/Rectangle-52.webp",
         title: "Premium Custom Bags",
         description:
           "Give your products premium shelf appeal with large-format custom bags designed for standout brand presentation.",
       },
       {
         id: 2,
-        image: "/campaign/custom-bags/influence/Rectangle%2053.webp",
+        image: "/campaign/custom-bags/influence/Rectangle-53.webp",
         title: "Retail Ready Packaging",
         description:
           "Display your products in retail-ready custom bags that catch attention with quality print finishes and bold branding.",
       },
       {
         id: 3,
-        image: "/campaign/custom-bags/influence/Rectangle%2058.webp",
+        image: "/campaign/custom-bags/influence/Rectangle-58.webp",
         title: "High-Impact Shelf Bags",
         description:
           "Stand out on any shelf with premium packaging that delivers a powerful first impression and trusted product protection.",
       },
       {
         id: 4,
-        image: "/campaign/custom-bags/influence/Rectangle%2060.webp",
+        image: "/campaign/custom-bags/influence/Rectangle-60.webp",
         title: "Secure Reclosable Bags",
         description:
           "Offer a secure reclosable packaging experience with custom bags that support easy opening and resealing.",
       },
       {
         id: 5,
-        image: "/campaign/custom-bags/influence/Rectangle%2061.webp",
+        image: "/campaign/custom-bags/influence/Rectangle-61.webp",
         title: "Custom Printed Pouches",
         description:
           "Choose custom printed pouches with vibrant branding and premium finishes designed to influence customer choice.",
@@ -144,7 +144,7 @@ export const customBagsData = {
   materials: [
     {
       id: 1,
-      image: '/campaign/custom-bags/Materials/Rectangle 5.webp',
+      image: '/campaign/custom-bags/Materials/Rectangle-5.webp',
       title: 'White Cardboard',
     },
     {
