@@ -27,7 +27,7 @@ const FaqSection = ({data}) => {
                   {faq.question}
                 </span>
                 <svg
-                  className={`w-5 h-5 sm:w-6 sm:h-6 text-black flex-shrink-0 transition-transform duration-300 ${
+                  className={`w-5 h-5 sm:w-6 sm:h-6 cursor-pointer text-black flex-shrink-0 transition-transform duration-300 ${
                     openIndex === index ? 'rotate-180' : ''
                   }`}
                   fill="none"

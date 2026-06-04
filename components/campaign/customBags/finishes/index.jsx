@@ -6,7 +6,7 @@ const Finishes = ({data}) => {
     <section className="w-full bg-white py-6 px-4 sm:py-8 sm:px-5 md:py-10 md:px-6 lg:py-14 lg:px-8 xl:py-16">
     
       <div className="mx-auto  px-4 lg:px-10 2xl:px-20">
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-[25px] font-semibold text-[#676767] mb-4 sm:mb-5 md:mb-6 lg:mb-4 ">
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-[25px] font-medium text-[#676767] mb-4 sm:mb-5 md:mb-6 lg:mb-4 ">
           Finishes
         </p>
 

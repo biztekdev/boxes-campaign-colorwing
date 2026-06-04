@@ -54,92 +54,87 @@ export const customBagsData = {
       },
     ],
     callSection: {
-      heading: "What We Do At ColorWing",
+      heading: "What We Do At ColorWing!",
       subheading:
-        "Enhance Your Product's Shelf Presentation And Influence Customers' Buying Decisions Instantly With Custom Bags. Offer Customers A Convenient And Secure Way To Open And Reseal The Packaging With Custom Zipper Bags Designed For Multiple Uses.",
+        "We transform standard paperboard materials into strategic brand assets. Our focus is on custom-printed boxes that offer tactile quality and durability, ensuring your brand identity remains pristine from the warehouse to the doorstep.",
       items: [
         {
           id: 1,
           icon: "/campaign/custom-bags/icons/freeDesign.svg",
-          title: "Free Design Support",
+          title: "Professional Design Support",
           description:
-            "Enjoy free design support tailored to your brand because great packaging starts with great design.",
+            "Access expert layout assistance to ensure your artwork aligns perfectly with technical die-line constraints. Precision starts here.",
         },
         {
           id: 2,
           icon: "/campaign/custom-bags/icons/quickTurnaround.svg",
-          title: "Quick Turnaround Time",
+          title: "Accelerated Production Cycles",
           description:
-            "Get your packaging ready in record time with our efficient and reliable production process.",
+            "Maintain your supply chain velocity with our optimized manufacturing. We move at the speed of your business.",
         },
         {
           id: 3,
           icon: "/campaign/custom-bags/icons/idealCustomer.svg",
-          title: "Ideal Customer Support",
+          title: "Direct Manufacturing Expertise",
           description:
-            "Our team is always here to assist you—quick, helpful, and hassle-free.",
+            "Liaise with packaging experts who are familiar with the material science and print manufacturing needed to produce your particular product.",
         },
         {
           id: 4,
           icon: "/campaign/custom-bags/icons/ecoFriendly.svg",
-          title: "Eco-Friendly Packaging",
+          title: "Environmentally Friendly Packaging",
           description:
-            "Sustainable packaging solutions designed to reduce environmental impact.",
+            "Use ecologically friendly stocks that offer high tensions and reduce your impact on the environment.",
         },
         {
           id: 5,
           icon: "/campaign/custom-bags/icons/lowMoqs.svg",
-          title: "Low MOQs",
+          title: "Scalable Wholesale Options",
           description:
-            "Affordable low MOQs designed for growing brands. Get high-quality packaging without large bulk order pressure.",
+            "Order professional-quality custom boxes at low MOQs with wholesale pricing. Scale up as your business grows without overstocking or overspending.",
         },
       ],
     },
   },
   Content: [
     {
-      title: "User-friendly & Secure Custom Bags For Maximum Product Freshness",
+      title: "Optimize Your Brand with High-Impact Custom Boxes",
       paragraph:
-        "Custom bags are designed to keep food, liquids, & other products safe while maintaining a clean environment that reduces the risks of contamination. Improve your product experience with custom resealable bags. Our stunning custom printed bags provide a high barrier against light, moisture, and oxygen. Each custom bag packaging can be customized with features like hang holes, clear windows, and tear notches for added convenience. Capture customer attention with eco friendly bags featuring customized designs, branding elements, and a durable structure. Fill out the form to get a fast custom quote.",
+        "We specialize in Custom Printed Box with Logo to ensure products remain protected while delivering a professional unboxing experience across the USA. Utilize our Custom Printed Boxes and Custom Mailer Boxes to reduce shipping risks and maximize your brand’s shelf appeal through high-grade materials.",
     },
     {
-      title: "Why Working With ColorWing is a Smart Choice?",
+      title: "Scale Your Operations with Custom Boxes Wholesale",
       paragraph:
-        "We are no ordinary packaging supplier. ColorWing is one of the leading packaging companies in the USA. We are known for delivering exceptional and high quality custom bags that help your products stand out. Our custom bags wholesale are available at affordable prices. Don’t waste more time and order custom bags with logos in bulk and start increasing your revenue today.",
+        "Implement Eco-Friendly Custom Boxes or specialized Custom Retail Packaging to drive growth. ColorWing delivers custom box printing across the USA that maintains crisp colors and vibrant prints without bleeds.",
     },
   ],
   faqs: [
     {
       id: 1,
-      question: 'Is it okay for me to customize my own bag packaging?',
+      question: 'How Do I Measure Custom Boxes?',
       answer:
-        "Yes, you can customize your bag packaging. You can select specific shapes and sizes of your packaging and upload your design to reflect your brand’s unique identity. ",
+        "Yes, you can customize sizes as per your product’s size. Get measurements of the length, width, and depth of your product, then ensure that you add 1/16 th of an inch to each side to get a fit that is safe and professional.",
     },
     {
       id: 2,
-      question: 'Do you sell tear resistant personalized bags?',
+      question: 'What Are Industries You Serve For Custom Boxes',
       answer:
-        'Yes. We sell tear resistant custom ziplock bags made to protect your products for a long time. Our bags are designed to withstand extreme conditions.',
+        'ColorWing delivers premium Custom Boxes for E-commerce, Cosmetics, and Retail. From durable Custom Shipping Boxes for tech to high-impact Custom Packaging with Logo for food and apparel',
     },
     {
       id: 3,
-      question: 'Which packaging materials are available for my customized bags?',
+      question: 'Do you provide retail package specialty finishes?',
       answer:
-        'We utilize the best quality packaging materials to make strong, customized bags for you. The following are the packaging materials for your bags:',
-      listItems: ['Plain white', 'Metalized', 'Clear bags', 'Metalized+Clear', 'Foil pouch', 'Kraft bag'],
+        'Yes. We offer Spot UV, foil stamping, and soft-touch lamination to give your customers the high-contrast, high-quality tactile experience.',
+      // listItems: ['Plain white', 'Metalized', 'Clear bags', 'Metalized+Clear', 'Foil pouch', 'Kraft bag'],
     },
     {
       id: 4,
-      question: 'Are custom bag packaging safe for direct food contact?',
+      question: 'Is it possible to take a prototype before my complete order?',
       answer:
-        'Yes. Our custom bags are safe for direct food contact and are made using FDA compliant packaging materials.',
+        'Our samples are unprinted and are made to order to ensure fit and functionality before we put them into mass production, your custom-printed boxes.',
     },
-    {
-      id: 5,
-      question: 'Do you offer child resistant custom bags?',
-      answer:
-        'Yes. We do offer you child resistant custom bags featuring certified zippers to prevent accidental product ingestion by children under five.',
-    },
+  
   ],
   materials: [
     {
@@ -216,40 +211,33 @@ export const customBagsData = {
       rating: 5,
       title: 'Printing Came Out Flawless',
       review:
-        "My custom bag packaging solutions were even better than I imagined. The printing was perfect, and the ziplock also works flawlessly. The packaging itself feels sturdy. These bags have helped us stand out at markets. Highly recommended!",
+        "My Custom Printed Boxes from ColorWing exceeded every expectation. The color accuracy is perfect, and the material feels incredibly sturdy. These boxes have truly helped our brand stand out in a crowded retail market. Highly recommended for any serious business!",
       verified: true,
     },
     {
       id: 2,
       rating: 5,
-      title: 'No Spills, Even During Transit',
+      title: 'Durability in Transit',
       review:
-        "I ordered custom bag packaging to ship our products nationwide, and yet they never leaked or got torn. This level of durability gives us peace of mind. Our customers love the luxurious look of the packaging.",
+        "I ordered Custom Shipping Boxes to move our fragile inventory nationwide, and not a single one arrived crushed or torn. This level of structural integrity gives us total peace of mind. Our customers often comment on the premium, professional look of the packaging.",
       verified: true,
     },
     {
       id: 3,
       rating: 5,
-      title: 'Strong Bags And No Rips',
+      title: 'Scalable Wholesale Orders',
       review:
-        "I’m in love with these bag packaging solutions. They hold up perfectly. There was no tearing even during the transit. It’s a huge relief for us to know that our products arrive in perfect condition every single time. Will order again!",
+        "Finding a partner for Custom Boxes Wholesale was a challenge until we found ColorWing. They handle our large orders with ease, and the quality remains consistent across every batch. It is a huge relief to know our products will arrive in perfect condition every time.",
       verified: true,
     },
     {
       id: 4,
       rating: 5,
-      title: 'Order Arrived Super Fast',
+      title: 'Strategic Unboxing Experience',
       review:
-        "We were out of packaging and placed a rush order. Our custom bags arrived super quickly, which makes everything easier for us. You are a lifesaver. Printing was top notch, and the quality was also amazing. ",
+        "We shifted to Custom Packaging with Logo and saw an immediate difference in customer feedback. ColorWing provides the technical precision we need for our complex die-line designs. The tactile quality of their cardboard is unmatched in the industry.",
       verified: true,
     },
-    {
-      id: 5,
-      rating: 5,
-      title: 'Perfect for Product Freshness',
-      review:
-        "My food business depends on keeping the aroma and freshness fully sealed. These customized bag packaging have helped us do exactly that. No moisture, just fresh food products. Plus, they look great on shelves.",
-      verified: true,
-    },
+    
   ],
 };
