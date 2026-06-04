@@ -154,7 +154,7 @@ export default function Form() {
 
   return (
     <form className='mt-10' onSubmit={handleSubmit}>
-      <h2 className='text-[30px] font-bold text-[#000000] leading-tight'>Get Wholesale Custom Boxes, Built For Your Brand, Shipped Fast.</h2>
+      <h2 className='text-[30px] font-bold text-[#000000] leading-tight SFProDisplay'>Get Wholesale Custom Boxes, Built For Your Brand, Shipped Fast.</h2>
       <p className='text-[14px] font-normal mt-3 text-[#535353]'>With our custom-printed boxes, your brand’s unique identity is maintained, and your brand authority is established.  Secure your brand’s market position with premium Custom Boxes designed for integrity and high-impact retail presence. 
 </p>
 
