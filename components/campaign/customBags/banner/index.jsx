@@ -18,7 +18,7 @@ function BannerCom({ data }) {
   return (
     <>
       <div>
-        <div className=" p-6">
+        <div className="">
           <div
             className="relative w-full flex items-center justify-center"
             style={{ minHeight: "400px" }}

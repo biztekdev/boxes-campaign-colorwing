@@ -1,7 +1,21 @@
-import React from 'react'
+'use client';
+import React, { useState } from 'react'
 import Image from 'next/image'
+import QuoteModal from '../quoteModal'
 
 const Materials = ({data}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  const openModal = (material) => {
+    setSelectedProduct(material);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
   return (
     <section className="w-full bg-white py-6 px-4 sm:py-8 sm:px-5 md:py-10 md:px-6 lg:py-14 lg:px-8 xl:py-16">
       <h2 className='text-center mb-6 md:mb-6 text-[25px] md:text-[30px] xl:text-[35px] 2xl:text-[40px] font-medium'>
@@ -14,7 +28,7 @@ const Materials = ({data}) => {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-2 sm:gap-2 md:gap-4 lg:gap-4 xl:gap-4">
           {data?.map((material) => (
-            <div key={material.id} className="relative rounded-[10px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
+            <div key={material.id} onClick={() => openModal(material)} className="relative rounded-[10px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.08)] cursor-pointer hover:shadow-[0_30px_80px_rgba(0,0,0,0.12)] transition-shadow">
               <div className="relative w-full aspect-[4/5] bg-slate-100">
                 <Image
                   src={material.image}
@@ -34,6 +48,8 @@ const Materials = ({data}) => {
           ))}
         </div>
       </div>
+      <QuoteModal isOpen={isModalOpen} onClose={closeModal} product={selectedProduct} />
+      
     </section>
   )
 }

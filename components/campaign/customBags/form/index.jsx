@@ -27,6 +27,10 @@ function formatPhoneNumber(value) {
 export default function Form() {
   const [selectedStyle, setSelectedStyle] = useState(styles[0]);
   const [customQuantity, setCustomQuantity] = useState("");
+  const [sizeWidth, setSizeWidth] = useState("");
+  const [sizeHeight, setSizeHeight] = useState("");
+  const [sizeGusset, setSizeGusset] = useState("");
+  const [sizeUnit, setSizeUnit] = useState("In");
   const [message, setMessage] = useState("");
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
@@ -52,14 +56,19 @@ export default function Form() {
         phone: phone || '',
         pouch: selectedStyle || '',
         quantity: customQuantity || '',
+        sizeWidth: sizeWidth || '',
+        sizeHeight: sizeHeight || '',
+        sizeGusset: sizeGusset || '',
+        sizeUnit: sizeUnit || '',
         note: message || '',
         campaignId: 'custom-bags',
       };
-      if (sessionData.fullName || sessionData.email || sessionData.phone || sessionData.pouch) {
+      const hasSessionData = Object.values(sessionData).some((value) => value !== '');
+      if (hasSessionData) {
         debouncedUpdate(sessionData);
       }
     }
-  }, [selectedStyle, customQuantity, message, fullName, company, email, phone, debouncedUpdate, isReady]);
+  }, [selectedStyle, customQuantity, sizeWidth, sizeHeight, sizeGusset, sizeUnit, message, fullName, company, email, phone, debouncedUpdate, isReady]);
 
   const validate = () => {
     const nextErrors = {};
@@ -69,6 +78,15 @@ export default function Form() {
       nextErrors.quantity = "Custom quantity must be a number.";
     } else if (parseInt(customQuantity.trim(), 10) < 2000) {
       nextErrors.quantity = "Custom quantity must be at least 2000.";
+    }
+    if (sizeWidth && !/^\d+(\.\d+)?$/.test(sizeWidth.trim())) {
+      nextErrors.sizeWidth = "Width must be a valid number.";
+    }
+    if (sizeHeight && !/^\d+(\.\d+)?$/.test(sizeHeight.trim())) {
+      nextErrors.sizeHeight = "Height must be a valid number.";
+    }
+    if (sizeGusset && !/^\d+(\.\d+)?$/.test(sizeGusset.trim())) {
+      nextErrors.sizeGusset = "Gusset must be a valid number.";
     }
     if (!fullName.trim()) {
       nextErrors.fullName = "Please enter your full name.";
@@ -103,6 +121,10 @@ export default function Form() {
       product_name: selectedStyle,
       category: 'Custom Bags',
       quantity: customQuantity,
+      size_width: sizeWidth,
+      size_height: sizeHeight,
+      size_gusset: sizeGusset,
+      size_unit: sizeUnit,
       description: message,
       isCampaignPage: true,
       campaignId: 'custom-bags',
@@ -114,6 +136,10 @@ export default function Form() {
       additionalData: {
         style: selectedStyle,
         quantity: customQuantity,
+        size_width: sizeWidth,
+        size_height: sizeHeight,
+        size_gusset: sizeGusset,
+        size_unit: sizeUnit,
         campaignId: 'custom-bags',
       },
     });
@@ -138,6 +164,10 @@ export default function Form() {
       setStatusMessage('Your request has been submitted successfully!');
       setSelectedStyle(styles[0]);
       setCustomQuantity('');
+      setSizeWidth('');
+      setSizeHeight('');
+      setSizeGusset('');
+      setSizeUnit('In');
       setMessage('');
       setFullName('');
       setCompany('');
@@ -153,12 +183,12 @@ export default function Form() {
   };
 
   return (
-    <form className='mt-10' onSubmit={handleSubmit}>
+    <form className='mt-4' onSubmit={handleSubmit}>
       <h2 className='text-[30px] font-bold text-[#000000] leading-tight SFProDisplay'>Get Wholesale Custom Boxes, Built For Your Brand, Shipped Fast.</h2>
       <p className='text-[14px] font-normal mt-3 text-[#535353]'>With our custom-printed boxes, your brand’s unique identity is maintained, and your brand authority is established.  Secure your brand’s market position with premium Custom Boxes designed for integrity and high-impact retail presence. 
 </p>
 
-      <div className='py-4 px-8 border mt-2 rounded-[10px] border-[#8D8989]'>
+      <div className='pb-4 px-8 border mt-2 rounded-[10px] border-[#8D8989]'>
          <div className='mt-4 grid gap-4'>
         <label className='block text-sm font-semibold text-slate-900'>Select Bag Style</label>
         <select
@@ -183,6 +213,50 @@ export default function Form() {
           className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.quantity ? 'border-red-500' : 'border-slate-300'}`}
         />
         {errors.quantity && <p className='mt-2 text-sm text-red-500'>{errors.quantity}</p>}
+      </div>
+
+      <div className='mt-2'>
+        <label className='block text-sm font-semibold text-slate-900'>Size</label>
+        <div className='mt-2 grid gap-4 sm:grid-cols-[1fr_1fr_1fr_120px] items-end'>
+          <div>
+            <input
+              value={sizeWidth}
+              onChange={(e) => setSizeWidth(e.target.value)}
+              placeholder='Width'
+              className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeWidth ? 'border-red-500' : 'border-slate-300'}`}
+            />
+            {errors.sizeWidth && <p className='mt-2 text-sm text-red-500'>{errors.sizeWidth}</p>}
+          </div>
+          <div>
+            <input
+              value={sizeHeight}
+              onChange={(e) => setSizeHeight(e.target.value)}
+              placeholder='Height'
+              className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeHeight ? 'border-red-500' : 'border-slate-300'}`}
+            />
+            {errors.sizeHeight && <p className='mt-2 text-sm text-red-500'>{errors.sizeHeight}</p>}
+          </div>
+          <div>
+            <input
+              value={sizeGusset}
+              onChange={(e) => setSizeGusset(e.target.value)}
+              placeholder='Gusset'
+              className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeGusset ? 'border-red-500' : 'border-slate-300'}`}
+            />
+            {errors.sizeGusset && <p className='mt-2 text-sm text-red-500'>{errors.sizeGusset}</p>}
+          </div>
+          <div>
+            <select
+              value={sizeUnit}
+              onChange={(e) => setSizeUnit(e.target.value)}
+              className='w-full rounded-[10px] border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none'
+            >
+              <option value='In'>in</option>
+              <option value='Cm'>cm</option>
+              <option value='Mm'>mm</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       <div className='mt-2'>
