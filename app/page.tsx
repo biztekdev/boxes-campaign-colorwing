@@ -1,5 +1,5 @@
-import CustomBagsCom from "@/components/campaign/customBags";
-import { customBagsData } from "@/data/campaignData/customBagsData";
+import CustomBagsCom from "../components/campaign/customBags";
+import { customBagsData } from "../data/campaignData/customBagsData";
 export default function Home() {
 
 
