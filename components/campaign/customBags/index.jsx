@@ -1,45 +1,21 @@
 'use client';
 import React, { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-
+import InfluenceCustomers from "./influenceCustomer";
+import CallSection from "./call";
+import ContentSection from "./contentSection";
+import Materials from "./materials";
+import Finishes from "./finishes";
+import Testimonials from "./testimonials";
+import FaqSection from "./faqs";
+import CompaignFooter from "./footer";
 // Critical above-the-fold components - loaded immediately
 import Form from "./form";
 import BannerCom from "./banner";
 import CustomBagsHeader from "./header";
 
 // Below-the-fold components - lazy loaded for better performance
-const InfluenceCustomers = dynamic(() => import("./influenceCustomer"), {
-  ssr: false,
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />,
-});
-const CallSection = dynamic(() => import("./call"), {
-  ssr: false,
-  loading: () => <div className="h-40 bg-gray-50 animate-pulse" />,
-});
-const ContentSection = dynamic(() => import("./contentSection"), {
-  ssr: false,
-  loading: () => <div className="h-64 bg-gray-50 animate-pulse" />,
-});
-const Materials = dynamic(() => import("./materials"), {
-  ssr: false,
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />,
-});
-const Finishes = dynamic(() => import("./finishes"), {
-  ssr: false,
-  loading: () => <div className="h-96 bg-gray-50 animate-pulse" />,
-});
-const Testimonials = dynamic(() => import("./testimonials"), {
-  ssr: false,
-  loading: () => <div className="h-64 bg-gray-50 animate-pulse" />,
-});
-const FaqSection = dynamic(() => import("./faqs"), {
-  ssr: false,
-  loading: () => <div className="h-64 bg-gray-50 animate-pulse" />,
-});
-const CompaignFooter = dynamic(() => import("./footer"), {
-  ssr: false,
-  loading: () => <div className="h-32 bg-gray-50 animate-pulse" />,
-});
+
 
 function CustomBagsCom({ data }) {
   return (
