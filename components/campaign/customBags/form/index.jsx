@@ -4,9 +4,9 @@ import { useRouter } from 'next/navigation';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { trackFormSubmit } from '@/utils/gtag';
 
-const QUOTE_API_URL = process.env.NEXT_PUBLIC_API_URL
-  ? `${process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, '')}/quote`
-  : '/api/quote';
+const DEFAULT_QUOTE_API_BASE = 'https://colorwing-latest-node.vercel.app/api';
+const QUOTE_API_URL = (process.env.NEXT_PUBLIC_API_URL || DEFAULT_QUOTE_API_BASE)
+  .replace(/\/+$/, '') + '/quote';
 
 const styles = [
   "Custom Box",
