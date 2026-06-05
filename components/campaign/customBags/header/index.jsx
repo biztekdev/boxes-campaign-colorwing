@@ -55,7 +55,7 @@ const CustomBagsHeader = () => {
         </div> */}
         <a href="tel:+17138320935 " className='phone_number' >
           <div className='flex items-center'>
-            <button className='inline-block  text-center text-[12px] sm:text-[15px] xl:text-[18px] font-normal rounded-[38px] bg-[#0095DA] text-white py-[10px] md:py-[11px] xl:py-[12px] w-[140px] sm:w-[150px] md:w-[200px] xl:w-[215px] hover:bg-[#0084c4] transition-all duration-300 transform hover:scale-105 '>
+            <button className='inline-block  text-center text-[12px] sm:text-[14px] xl:text-[16px] font-bold rounded-[38px] bg-[#0095DA] text-white py-[10px] md:py-[11px] xl:py-[12px] w-[140px] sm:w-[150px] md:w-[200px] xl:w-[215px] hover:bg-[#0084c4] transition-all duration-300 transform hover:scale-105 '>
              +1 (713) 832-0935
             </button>
 

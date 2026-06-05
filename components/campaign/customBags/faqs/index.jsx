@@ -12,7 +12,7 @@ const FaqSection = ({data}) => {
   return (
     <section className="w-full bg-white py-8 sm:py-10 md:py-12 ">
       <div className="max-w-4xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black text-center mb-8 sm:mb-10 md:mb-12 lg:mb-14">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-medium text-black text-center mb-8 sm:mb-10 md:mb-12 lg:mb-14">
           Frequently Asked Questions
         </h2>
 
@@ -23,7 +23,7 @@ const FaqSection = ({data}) => {
                 onClick={() => toggleFaq(index)}
                 className="w-full flex items-center justify-between py-5 sm:py-6 md:py-7 text-left hover:bg-gray-50 transition-colors duration-200"
               >
-                <span className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-black pr-4 break-words whitespace-normal">
+                <span className="text-[14px]  md:text-[16px] lg:text-[18px] font-normal text-black pr-4 break-words whitespace-normal">
                   {faq.question}
                 </span>
                 <svg
@@ -49,7 +49,7 @@ const FaqSection = ({data}) => {
                 }`}
               >
                 <div className="pb-5 sm:pb-6 md:pb-7 pr-10">
-                  <p className="text-xs sm:text-sm md:text-base text-gray-600 break-words whitespace-normal leading-relaxed">
+                  <p className="text-[14px] md:text-[16px] text-[#676767] break-words whitespace-normal leading-relaxed">
                     {faq.answer}
                   </p>
                   {faq.listItems && (

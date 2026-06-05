@@ -35,8 +35,7 @@ const Finishes = ({data}) => {
                   className="object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                <div className="absolute left-4 right-4 bottom-4 rounded-lg bg-black/30 px-4 py-1 text-center">
+                <div className="absolute left-4 right-4 bottom-4 rounded-lg bg-black/40 px-4 py-1 text-center">
                   <p className="text-[10px] md:text-[12px] lg:text-[14px] xl:text-[14px] font-medium text-white">
                     {finish.title}
                   </p>

@@ -1,27 +1,46 @@
 ﻿'use client';
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { trackFormSubmit } from '@/utils/gtag';
 
 const styles = [
-  "Custom Bags",
-  "Stand Up Pouch",
-  "Flat Bottom Pouch",
-  "Ziplock Bag",
-  "Die Cut Bag",
-  "Spout Pouch",
+  "Custom Box",
+  "Display Boxes",
+  "Pillow Boxes",
+  "Custom Soap Boxes",
+  "Custom Tuck Boxes",
+  "Magnetic Closure Boxes",
+  "Custom Mailer Boxes",
+  "Candle Boxes",
+  "Custom Gable Boxes",
+  "Eco Friendly Boxes",
+  "Drawer Gift Boxes",
+  "Satin Lined Boxes",
+  "Supplements Packaging",
+  "Pharma Packaging",
+  "Custom Metalized Print Boxes",
+  "Gold Foil Boxes",
 ];
 
 function formatPhoneNumber(value) {
-  if (!value || value === '+1') return '+1';
-  const cleanValue = value.replace(/[^\d+]/g, '');
-  if (!cleanValue.startsWith('+1')) return '+1';
-  const phone = cleanValue.slice(2).replace(/\D/g, '').slice(0, 10);
+  const cleaned = value ? value.replace(/[^\d+]/g, '') : '';
+  const digits = cleaned.replace(/\D/g, '');
+  if (!digits || digits === '1') return '+1';
+  let phone = digits;
+  if (phone.length === 11 && phone.startsWith('1')) {
+    phone = phone.slice(1);
+  }
+  phone = phone.slice(0, 10);
   const phoneLength = phone.length;
   if (phoneLength === 0) return '+1';
   if (phoneLength < 4) return `+1${phone}`;
   if (phoneLength < 7) return `+1 (${phone.slice(0, 3)}) ${phone.slice(3)}`;
   return `+1 (${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
+}
+
+function normalizePhoneNumber(value) {
+  return value ? value.replace(/[^\d+]/g, '') : '';
 }
 
 export default function Form() {
@@ -40,6 +59,7 @@ export default function Form() {
   const [statusMessage, setStatusMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const campaignFormId = 'campaign-custom-bags-form';
   const { updateSession, debouncedUpdate, isReady } = useSessionTracking({
@@ -76,28 +96,34 @@ export default function Form() {
       nextErrors.quantity = "Please enter a quantity.";
     } else if (!/^\d+$/.test(customQuantity.trim())) {
       nextErrors.quantity = "Custom quantity must be a number.";
-    } else if (parseInt(customQuantity.trim(), 10) < 2000) {
-      nextErrors.quantity = "Custom quantity must be at least 2000.";
+    } else if (parseInt(customQuantity.trim(), 10) < 1000) {
+      nextErrors.quantity = "Custom quantity must be at least 1000.";
     }
-    if (sizeWidth && !/^\d+(\.\d+)?$/.test(sizeWidth.trim())) {
+    if (!sizeWidth.trim()) {
+      nextErrors.sizeWidth = "Please enter width.";
+    } else if (!/^\d+(\.\d+)?$/.test(sizeWidth.trim())) {
       nextErrors.sizeWidth = "Width must be a valid number.";
     }
-    if (sizeHeight && !/^\d+(\.\d+)?$/.test(sizeHeight.trim())) {
+    if (!sizeHeight.trim()) {
+      nextErrors.sizeHeight = "Please enter height.";
+    } else if (!/^\d+(\.\d+)?$/.test(sizeHeight.trim())) {
       nextErrors.sizeHeight = "Height must be a valid number.";
     }
-    if (sizeGusset && !/^\d+(\.\d+)?$/.test(sizeGusset.trim())) {
+    if (!sizeGusset.trim()) {
+      nextErrors.sizeGusset = "Please enter gusset.";
+    } else if (!/^\d+(\.\d+)?$/.test(sizeGusset.trim())) {
       nextErrors.sizeGusset = "Gusset must be a valid number.";
     }
-    if (!fullName.trim()) {
-      nextErrors.fullName = "Please enter your full name.";
-    }
-    if (!phone.trim()) {
-      nextErrors.phone = "Please enter your phone number.";
-    } else if (!/^\+?\d{7,15}$/.test(phone.trim())) {
-      nextErrors.phone = "Enter a valid phone number.";
-    }
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email.trim()) {
+      nextErrors.email = "Please enter your email.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       nextErrors.email = "Enter a valid email address.";
+    }
+    const cleanedPhone = normalizePhoneNumber(phone);
+    if (!cleanedPhone || cleanedPhone === '+1') {
+      nextErrors.phone = "Please enter your phone number.";
+    } else if (!/^\+?\d{7,15}$/.test(cleanedPhone)) {
+      nextErrors.phone = "Enter a valid phone number.";
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -162,17 +188,8 @@ export default function Form() {
 
       setIsSuccess(true);
       setStatusMessage('Your request has been submitted successfully!');
-      setSelectedStyle(styles[0]);
-      setCustomQuantity('');
-      setSizeWidth('');
-      setSizeHeight('');
-      setSizeGusset('');
-      setSizeUnit('In');
-      setMessage('');
-      setFullName('');
-      setCompany('');
-      setEmail('');
-      setPhone('+1');
+      router.push('/thank-you');
+      return;
     } catch (error) {
       console.error(error);
       setStatusMessage('Something went wrong. Please try again.');
@@ -184,13 +201,13 @@ export default function Form() {
 
   return (
     <form className='mt-4' onSubmit={handleSubmit}>
-      <h2 className='text-[30px] font-bold text-[#000000] leading-tight SFProDisplay'>Get Wholesale Custom Boxes, Built For Your Brand, Shipped Fast.</h2>
-      <p className='text-[14px] font-normal mt-3 text-[#535353]'>With our custom-printed boxes, your brand’s unique identity is maintained, and your brand authority is established.  Secure your brand’s market position with premium Custom Boxes designed for integrity and high-impact retail presence. 
+      <h2 className='text-[20px] xl:text-[25px] 2xl:text-[30px] font-bold text-[#000000] leading-tight SFProDisplay'>Custom Boxes That Upscale Your Brand Recognition</h2>
+      <p className='text-[12px] xl:text-[14px] font-normal mt-3 text-[#535353]'>With our custom-printed boxes, your brand’s unique identity is maintained, and your brand authority is established.  Secure your brand’s market position with premium Custom Boxes designed for integrity and high-impact retail presence. 
 </p>
 
       <div className='pb-4 px-8 border mt-2 rounded-[10px] border-[#8D8989]'>
          <div className='mt-4 grid gap-4'>
-        <label className='block text-sm font-semibold text-slate-900'>Select Bag Style</label>
+        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Select Bag Style</label>
         <select
           value={selectedStyle}
           onChange={(e) => setSelectedStyle(e.target.value)}
@@ -205,18 +222,17 @@ export default function Form() {
       </div>
 
       <div className='mt-2'>
-        <label className='block text-sm font-semibold text-slate-900'>Quantity</label>
+        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Quantity</label>
         <input
           value={customQuantity}
           onChange={(e) => setCustomQuantity(e.target.value)}
-          placeholder='Enter your desired quantity'
-          className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.quantity ? 'border-red-500' : 'border-slate-300'}`}
+          placeholder='Enter your desired quantity (min 1000)'
+          className={`mt-2 w-full rounded-[10px] border border-[#C0BDBD] px-4 py-3 text-slate-900 outline-none ${errors.quantity ? 'border-red-500' : 'border-slate-300'}`}
         />
-        {errors.quantity && <p className='mt-2 text-sm text-red-500'>{errors.quantity}</p>}
       </div>
 
       <div className='mt-2'>
-        <label className='block text-sm font-semibold text-slate-900'>Size</label>
+        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Size</label>
         <div className='mt-2 grid gap-4 sm:grid-cols-[1fr_1fr_1fr_120px] items-end'>
           <div>
             <input
@@ -225,7 +241,6 @@ export default function Form() {
               placeholder='Width'
               className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeWidth ? 'border-red-500' : 'border-slate-300'}`}
             />
-            {errors.sizeWidth && <p className='mt-2 text-sm text-red-500'>{errors.sizeWidth}</p>}
           </div>
           <div>
             <input
@@ -234,7 +249,6 @@ export default function Form() {
               placeholder='Height'
               className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeHeight ? 'border-red-500' : 'border-slate-300'}`}
             />
-            {errors.sizeHeight && <p className='mt-2 text-sm text-red-500'>{errors.sizeHeight}</p>}
           </div>
           <div>
             <input
@@ -243,7 +257,6 @@ export default function Form() {
               placeholder='Gusset'
               className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeGusset ? 'border-red-500' : 'border-slate-300'}`}
             />
-            {errors.sizeGusset && <p className='mt-2 text-sm text-red-500'>{errors.sizeGusset}</p>}
           </div>
           <div>
             <select
@@ -260,7 +273,7 @@ export default function Form() {
       </div>
 
       <div className='mt-2'>
-        <label className='block text-sm font-semibold text-slate-900'>Additional details</label>
+        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Additional details</label>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -271,29 +284,27 @@ export default function Form() {
 
       <div className='mt-2 grid gap-4 md:grid-cols-2'>
         <div>
-          <label className='block text-sm font-semibold text-slate-900'>Full Name</label>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Full Name</label>
           <input
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
             placeholder='Full Name'
             className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.fullName ? 'border-red-500' : 'border-slate-300'}`}
           />
-          {errors.fullName && <p className='mt-2 text-sm text-red-500'>{errors.fullName}</p>}
         </div>
         <div>
-          <label className='block text-sm font-semibold text-slate-900'>Email</label>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Email</label>
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Email'
             className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.email ? 'border-red-500' : 'border-slate-300'}`}
           />
-          {errors.email && <p className='mt-2 text-sm text-red-500'>{errors.email}</p>}
         </div>
       </div>
 
       <div className='mt-2'>
-        <label className='block text-sm font-semibold text-slate-900'>Phone</label>
+        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Phone</label>
         <input
           type='tel'
           value={formatPhoneNumber(phone)}
@@ -301,27 +312,23 @@ export default function Form() {
           placeholder='+1 (123) 456-7890'
           className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.phone ? 'border-red-500' : 'border-slate-300'}`}
         />
-        {errors.phone && <p className='mt-2 text-sm text-red-500'>{errors.phone}</p>}
       </div>
 
     
 
       <div className='mt-4'>
         <button
+          {...(customQuantity && sizeWidth && sizeHeight && sizeGusset && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
           type='submit'
           disabled={isSubmitting}
-          className='inline-flex w-full items-center justify-center rounded-full bg-[#00ADEE] px-6 py-4 text-base font-semibold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60'
+          className='inline-flex w-full items-center justify-center rounded-full bg-[#00ADEE] px-6 py-4 text-[14px] md:text-[16px] font-bold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60'
         >
           {isSubmitting ? 'Submitting…' : 'Submit Request'}
         </button>
       </div>
         </div>
 
-      {statusMessage && (
-        <div className={`mt-4 rounded-2xl px-4 py-3 text-sm ${isSuccess ? 'bg-emerald-100 text-emerald-900' : 'bg-rose-100 text-rose-900'}`}>
-          {statusMessage}
-        </div>
-      )}
+     
     </form>
   );
 }

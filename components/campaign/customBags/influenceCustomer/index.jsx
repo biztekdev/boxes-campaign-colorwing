@@ -60,10 +60,10 @@ const InfluenceCustomers = ({data}) => {
                         loading="lazy"
                       />
                       <div className="absolute left-4 right-4 bottom-4 rounded-[10px] bg-white/95 p-4  backdrop-blur-sm">
-                        <p className="text-[16px] font-medium text-black leading-snug text-center">
+                        <p className="text-[14px] md:text-[16px] xl:text-[18px] font-medium text-black leading-snug text-center">
                           {product.title}
                         </p>
-                        <p className="mt-2 text-[13px] text-[#676767] font-normal leading-relaxed text-center">
+                        <p className="mt-2 text-[11px] md:text-[13px] text-[#676767] font-normal leading-relaxed text-center">
                           {product.description}
                         </p>
                       </div>

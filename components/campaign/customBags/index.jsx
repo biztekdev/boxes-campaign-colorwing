@@ -24,7 +24,7 @@ function CustomBagsCom({ data }) {
       
       <div
         id="custom-quote-form"
-        className="flex m-auto px-4 md:px-10 2xl:px-20 gap-8 mt-10 bg-white lg:flex-row flex-col scroll-mt-20"
+        className="flex m-auto px-4 md:px-10 2xl:px-20 gap-8 mt-10 bg-white flex-col-reverse lg:flex-row scroll-mt-20"
       >
         <div className="lg:w-[50%] xl:w-[60%] 2xl:w-[60%] bg-white">
           <BannerCom data={data?.bannerData} />

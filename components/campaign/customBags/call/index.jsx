@@ -8,10 +8,10 @@ const CallSection = ({ data }) => {
     <section className="w-full  py-12 px-4 md:px-10 2xl:px-20 bg-white">
       <div className="mx-auto ">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-[28px] md:text-[32px] font-semibold text-[#212121] mb-4">
+          <h2 className="text-[20px] md:text-[20px] xl:text-[30px] font-medium text-[#000000] mb-4">
             {data.heading}
           </h2>
-          <p className="text-[14px] md:text-[16px] text-[#676767] max-w-[900px] mx-auto leading-relaxed">
+          <p className="text-[12px] md:text-[14px] xl:text-[16px] text-[#676767] max-w-[900px] mx-auto leading-relaxed">
             {data.subheading}
           </p>
         </div>

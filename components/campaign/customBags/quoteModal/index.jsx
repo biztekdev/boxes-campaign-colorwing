@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { trackFormSubmit } from '@/utils/gtag';
 
@@ -15,6 +16,10 @@ function formatPhoneNumber(value) {
   return `+1 (${phone.slice(0, 3)}) ${phone.slice(3, 6)}-${phone.slice(6, 10)}`;
 }
 
+function normalizePhoneNumber(value) {
+  return value ? value.replace(/[^\d+]/g, '') : '';
+}
+
 export default function QuoteModal({ isOpen, onClose, product }) {
   const [customQuantity, setCustomQuantity] = useState("");
   const [sizeWidth, setSizeWidth] = useState("");
@@ -27,6 +32,7 @@ export default function QuoteModal({ isOpen, onClose, product }) {
   const [statusMessage, setStatusMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const campaignFormId = 'campaign-custom-bags-modal-form';
   const { updateSession, debouncedUpdate, isReady } = useSessionTracking({
@@ -61,16 +67,22 @@ export default function QuoteModal({ isOpen, onClose, product }) {
       nextErrors.quantity = "Please enter a quantity.";
     } else if (!/^\d+$/.test(customQuantity.trim())) {
       nextErrors.quantity = "Custom quantity must be a number.";
-    } else if (parseInt(customQuantity.trim(), 10) < 2000) {
-      nextErrors.quantity = "Custom quantity must be at least 2000.";
+    } else if (parseInt(customQuantity.trim(), 10) < 1000) {
+      nextErrors.quantity = "Custom quantity must be at least 1000.";
     }
-    if (sizeWidth && !/^\d+(\.\d+)?$/.test(sizeWidth.trim())) {
+    if (!sizeWidth.trim()) {
+      nextErrors.sizeWidth = "Please enter width.";
+    } else if (!/^\d+(\.\d+)?$/.test(sizeWidth.trim())) {
       nextErrors.sizeWidth = "Width must be a valid number.";
     }
-    if (sizeHeight && !/^\d+(\.\d+)?$/.test(sizeHeight.trim())) {
+    if (!sizeHeight.trim()) {
+      nextErrors.sizeHeight = "Please enter height.";
+    } else if (!/^\d+(\.\d+)?$/.test(sizeHeight.trim())) {
       nextErrors.sizeHeight = "Height must be a valid number.";
     }
-    if (sizeGusset && !/^\d+(\.\d+)?$/.test(sizeGusset.trim())) {
+    if (!sizeGusset.trim()) {
+      nextErrors.sizeGusset = "Please enter gusset.";
+    } else if (!/^\d+(\.\d+)?$/.test(sizeGusset.trim())) {
       nextErrors.sizeGusset = "Gusset must be a valid number.";
     }
     if (!email.trim()) {
@@ -78,9 +90,10 @@ export default function QuoteModal({ isOpen, onClose, product }) {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       nextErrors.email = "Enter a valid email address.";
     }
-    if (!phone.trim()) {
+    const cleanedPhone = normalizePhoneNumber(phone);
+    if (!cleanedPhone || cleanedPhone === '+1') {
       nextErrors.phone = "Please enter your phone number.";
-    } else if (!/^\+?\d{7,15}$/.test(phone.trim())) {
+    } else if (!/^\+?\d{7,15}$/.test(cleanedPhone)) {
       nextErrors.phone = "Enter a valid phone number.";
     }
     setErrors(nextErrors);
@@ -143,17 +156,8 @@ export default function QuoteModal({ isOpen, onClose, product }) {
 
       setIsSuccess(true);
       setStatusMessage('Your request has been submitted successfully!');
-      setTimeout(() => {
-        onClose();
-        setCustomQuantity('');
-        setSizeWidth('');
-        setSizeHeight('');
-        setSizeGusset('');
-        setSizeUnit('In');
-        setEmail('');
-        setPhone('+1');
-        setStatusMessage('');
-      }, 1500);
+      router.push('/thank-you');
+      return;
     } catch (error) {
       console.error(error);
       setStatusMessage('Something went wrong. Please try again.');
@@ -185,10 +189,9 @@ export default function QuoteModal({ isOpen, onClose, product }) {
               <input
                 value={customQuantity}
                 onChange={(e) => setCustomQuantity(e.target.value)}
-                placeholder="Enter your desired quantity (min 2000)"
+                placeholder="Enter your desired quantity (min 1000)"
                 className={`w-full rounded-lg border px-4 py-3 text-slate-900 outline-none ${errors.quantity ? 'border-red-500' : 'border-slate-300'}`}
               />
-              {errors.quantity && <p className="mt-1 text-sm text-red-500">{errors.quantity}</p>}
             </div>
 
             <div>
@@ -201,7 +204,6 @@ export default function QuoteModal({ isOpen, onClose, product }) {
                     placeholder="Width"
                     className={`w-full rounded-lg border px-3 py-2 text-sm outline-none ${errors.sizeWidth ? 'border-red-500' : 'border-slate-300'}`}
                   />
-                  {errors.sizeWidth && <p className="text-xs text-red-500">{errors.sizeWidth}</p>}
                 </div>
                 <div>
                   <input
@@ -210,7 +212,6 @@ export default function QuoteModal({ isOpen, onClose, product }) {
                     placeholder="Height"
                     className={`w-full rounded-lg border px-3 py-2 text-sm outline-none ${errors.sizeHeight ? 'border-red-500' : 'border-slate-300'}`}
                   />
-                  {errors.sizeHeight && <p className="text-xs text-red-500">{errors.sizeHeight}</p>}
                 </div>
                 <div>
                   <input
@@ -219,7 +220,6 @@ export default function QuoteModal({ isOpen, onClose, product }) {
                     placeholder="Gusset"
                     className={`w-full rounded-lg border px-3 py-2 text-sm outline-none ${errors.sizeGusset ? 'border-red-500' : 'border-slate-300'}`}
                   />
-                  {errors.sizeGusset && <p className="text-xs text-red-500">{errors.sizeGusset}</p>}
                 </div>
                 <select
                   value={sizeUnit}
@@ -242,7 +242,6 @@ export default function QuoteModal({ isOpen, onClose, product }) {
                   placeholder="Email"
                   className={`w-full rounded-lg border px-4 py-3 text-slate-900 outline-none ${errors.email ? 'border-red-500' : 'border-slate-300'}`}
                 />
-                {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
               </div>
               <div>
                 <label className="block text-sm font-semibold text-slate-900 mb-2">Phone</label>
@@ -253,11 +252,11 @@ export default function QuoteModal({ isOpen, onClose, product }) {
                   placeholder="+1 (123) 456-7890"
                   className={`w-full rounded-lg border px-4 py-3 text-slate-900 outline-none ${errors.phone ? 'border-red-500' : 'border-slate-300'}`}
                 />
-                {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
               </div>
             </div>
 
             <button
+              {...(customQuantity && sizeWidth && sizeHeight && sizeGusset && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
               type="submit"
               disabled={isSubmitting}
               className="w-full rounded-full bg-[#00ADEE] px-6 py-3 text-base font-semibold text-white transition hover:bg-sky-700 disabled:opacity-60 mt-6"

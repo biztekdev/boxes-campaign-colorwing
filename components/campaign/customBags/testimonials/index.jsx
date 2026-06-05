@@ -9,11 +9,10 @@ import 'swiper/css/pagination'
 
 const Testimonials = ({data}) => {
   return (
-    <section className="w-full bg-white py-8 sm:py-10 md:py-12 px-4 md:px-10 2xl:px-20 overflow-hidden">
+    <section className="w-full bg-white py-8 sm:py-10 md:py-8 px-4 md:px-10 2xl:px-20 overflow-hidden">
       <div className=" mb-8 sm:mb-10 md:mb-12 lg:mb-14">
         <h2 className="text-[20px] sm:text-[22px] md:text-[25px] lg:text-[30px] font-semibold">
-          <span className="font-bold text-black">Client Testimonials: </span>
-          <span className="font-normal text-[#676767]"> Our Success Stories</span>
+          <span className="text-[18px] md:[20px] xl:text-[25px] 2xl:text-[30px] font-medium text-black">Testimonials What Our Clients Say About Us</span>
         </h2>
       </div>
 

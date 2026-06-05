@@ -13,44 +13,44 @@ export const customBagsData = {
     ],
   },
   influencerData: {
-    heading: "Influence Customers’ Buying Decisions With Custom Bags",
+    heading: "Every Box Style Your Brand Needs — All In One Place",
     paragraph:
-      "Your packaging is the first thing your customer touches. Make it count. ColorWing crafts custom bags and packaging that turns heads, builds trust, and drives repeat purchases.",
+      "Access scalable packaging solutions designed for brands of all sizes. From Custom Shipping Boxes to Custom Cardboard Boxes, our production process focuses on durability and high-definition branding.",
     products: [
       {
         id: 1,
         image: "/campaign/custom-bags/influence/Rectangle-52.webp",
-        title: "Premium Custom Bags",
+        title: "Custom Boxes",
         description:
           "Give your products premium shelf appeal with large-format custom bags designed for standout brand presentation.",
       },
       {
         id: 2,
         image: "/campaign/custom-bags/influence/Rectangle-53.webp",
-        title: "Retail Ready Packaging",
+        title: "Reverse Tuck End Boxes",
         description:
-          "Display your products in retail-ready custom bags that catch attention with quality print finishes and bold branding.",
+          "Reverse Tuck End Boxes for seamless assembly. ColorWing ensures elite fit.",
       },
       {
         id: 3,
         image: "/campaign/custom-bags/influence/Rectangle-58.webp",
-        title: "High-Impact Shelf Bags",
+        title: "Display Boxes",
         description:
-          "Stand out on any shelf with premium packaging that delivers a powerful first impression and trusted product protection.",
+          "Command the shelf with Display Boxes. ColorWing delivers high-visibility branding for maximum retail impact.",
       },
       {
         id: 4,
         image: "/campaign/custom-bags/influence/Rectangle-60.webp",
-        title: "Secure Reclosable Bags",
+        title: "Dispenser Boxes",
         description:
-          "Offer a secure reclosable packaging experience with custom bags that support easy opening and resealing.",
+          "Efficient Dispenser Boxes custom-made for high-volume retail. ColorWing optimizes your point-of-sale utility.",
       },
       {
         id: 5,
         image: "/campaign/custom-bags/influence/Rectangle-61.webp",
-        title: "Custom Printed Pouches",
+        title: "Top and Bottom Boxes",
         description:
-          "Choose custom printed pouches with vibrant branding and premium finishes designed to influence customer choice.",
+          "Top and Bottom Boxes for a premium unboxing. ColorWing provides the ultimate two-piece rigid packaging.",
       },
     ],
     callSection: {
