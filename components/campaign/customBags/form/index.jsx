@@ -4,6 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { trackFormSubmit } from '@/utils/gtag';
 
+const QUOTE_API_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, '')}/quote`
+  : '/api/quote';
+
 const styles = [
   "Custom Box",
   "Display Boxes",
@@ -81,7 +85,7 @@ export default function Form() {
         sizeGusset: sizeGusset || '',
         sizeUnit: sizeUnit || '',
         note: message || '',
-        campaignId: 'custom-bags',
+        campaignId: 'custom-boxes',
       };
       const hasSessionData = Object.values(sessionData).some((value) => value !== '');
       if (hasSessionData) {
@@ -145,7 +149,7 @@ export default function Form() {
       phone,
       company,
       product_name: selectedStyle,
-      category: 'Custom Bags',
+      category: 'Custom Boxes',
       quantity: customQuantity,
       size_width: sizeWidth,
       size_height: sizeHeight,
@@ -153,7 +157,7 @@ export default function Form() {
       size_unit: sizeUnit,
       description: message,
       isCampaignPage: true,
-      campaignId: 'custom-bags',
+      campaignId: 'custom-boxes',
       campaignUrl: typeof window !== 'undefined' ? window.location.href : '',
     };
 
@@ -166,13 +170,13 @@ export default function Form() {
         size_height: sizeHeight,
         size_gusset: sizeGusset,
         size_unit: sizeUnit,
-        campaignId: 'custom-bags',
+        campaignId: 'custom-boxes',
       },
     });
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/quote', {
+      const response = await fetch(QUOTE_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

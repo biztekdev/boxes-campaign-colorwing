@@ -4,6 +4,10 @@ import { useRouter } from 'next/navigation';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
 import { trackFormSubmit } from '@/utils/gtag';
 
+const QUOTE_API_URL = process.env.NEXT_PUBLIC_API_URL
+  ? `${process.env.NEXT_PUBLIC_API_URL.replace(/\/+$/, '')}/quote`
+  : '/api/quote';
+
 function formatPhoneNumber(value) {
   if (!value || value === '+1') return '+1';
   const cleanValue = value.replace(/[^\d+]/g, '');
@@ -26,6 +30,8 @@ export default function QuoteModal({ isOpen, onClose, product }) {
   const [sizeHeight, setSizeHeight] = useState("");
   const [sizeGusset, setSizeGusset] = useState("");
   const [sizeUnit, setSizeUnit] = useState("In");
+  const [fullName, setFullName] = useState("");
+  const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+1");
   const [errors, setErrors] = useState({});
@@ -44,6 +50,8 @@ export default function QuoteModal({ isOpen, onClose, product }) {
     if (isReady && product) {
       const sessionData = {
         product_name: product?.title || '',
+        fullName: fullName || '',
+        company: company || '',
         email: email || '',
         phone: phone || '',
         quantity: customQuantity || '',
@@ -59,10 +67,13 @@ export default function QuoteModal({ isOpen, onClose, product }) {
         debouncedUpdate(sessionData);
       }
     }
-  }, [product, customQuantity, sizeWidth, sizeHeight, sizeGusset, sizeUnit, email, phone, debouncedUpdate, isReady]);
+  }, [product, customQuantity, sizeWidth, sizeHeight, sizeGusset, sizeUnit, fullName, company, email, phone, debouncedUpdate, isReady]);
 
   const validate = () => {
     const nextErrors = {};
+    if (!fullName.trim()) {
+      nextErrors.fullName = "Please enter your full name.";
+    }
     if (!customQuantity) {
       nextErrors.quantity = "Please enter a quantity.";
     } else if (!/^\d+$/.test(customQuantity.trim())) {
@@ -111,8 +122,11 @@ export default function QuoteModal({ isOpen, onClose, product }) {
     }
 
     const payload = {
+      name: fullName,
       email,
       phone,
+      company: company || '',
+      product_name: product?.title || '',
       category: 'Custom Bags',
       quantity: customQuantity,
       size_width: sizeWidth,
@@ -128,6 +142,10 @@ export default function QuoteModal({ isOpen, onClose, product }) {
     trackFormSubmit({
       formName: 'campaign_custom_bags_modal',
       additionalData: {
+        fullName: fullName,
+        company: company,
+        email: email,
+        phone: phone,
         quantity: customQuantity,
         size_width: sizeWidth,
         size_height: sizeHeight,
@@ -140,7 +158,7 @@ export default function QuoteModal({ isOpen, onClose, product }) {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch('/api/quote', {
+      const response = await fetch(QUOTE_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -235,6 +253,27 @@ export default function QuoteModal({ isOpen, onClose, product }) {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">Full Name</label>
+                <input
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Full Name"
+                  className={`w-full rounded-lg border px-4 py-3 text-slate-900 outline-none ${errors.fullName ? 'border-red-500' : 'border-slate-300'}`}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-slate-900 mb-2">Company</label>
+                <input
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                  placeholder="Company (optional)"
+                  className={`w-full rounded-lg border px-4 py-3 text-slate-900 outline-none ${errors.company ? 'border-red-500' : 'border-slate-300'}`}
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
                 <label className="block text-sm font-semibold text-slate-900 mb-2">Email</label>
                 <input
                   value={email}
@@ -256,7 +295,7 @@ export default function QuoteModal({ isOpen, onClose, product }) {
             </div>
 
             <button
-              {...(customQuantity && sizeWidth && sizeHeight && sizeGusset && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
+              {...(customQuantity && sizeWidth && sizeHeight && sizeGusset && fullName && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
               type="submit"
               disabled={isSubmitting}
               className="w-full rounded-full bg-[#00ADEE] px-6 py-3 text-base font-semibold text-white transition hover:bg-sky-700 disabled:opacity-60 mt-6"
