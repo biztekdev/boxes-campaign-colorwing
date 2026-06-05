@@ -26,10 +26,7 @@ function normalizePhoneNumber(value) {
 
 export default function QuoteModal({ isOpen, onClose, product }) {
   const [customQuantity, setCustomQuantity] = useState("");
-  const [sizeWidth, setSizeWidth] = useState("");
-  const [sizeHeight, setSizeHeight] = useState("");
-  const [sizeGusset, setSizeGusset] = useState("");
-  const [sizeUnit, setSizeUnit] = useState("In");
+  const [dimensions, setDimensions] = useState({ width: "", height: "", gusset: "", unit: "Inch" });
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
   const [email, setEmail] = useState("");
@@ -55,19 +52,21 @@ export default function QuoteModal({ isOpen, onClose, product }) {
         email: email || '',
         phone: phone || '',
         quantity: customQuantity || '',
-        sizeWidth: sizeWidth || '',
-        sizeHeight: sizeHeight || '',
-        sizeGusset: sizeGusset || '',
-        sizeUnit: sizeUnit || '',
+        dimensions: {
+          width: dimensions.width || '',
+          height: dimensions.height || '',
+          gusset: dimensions.gusset || '',
+          unit: dimensions.unit || '',
+        },
         campaignId: 'custom-bags-modal',
         formSource: 'product-modal',
       };
-      const hasSessionData = Object.values(sessionData).some((value) => value !== '');
+      const hasSessionData = [product?.title, fullName, company, email, phone, customQuantity, dimensions.width, dimensions.height, dimensions.gusset].some((v) => v && v !== '');
       if (hasSessionData) {
         debouncedUpdate(sessionData);
       }
     }
-  }, [product, customQuantity, sizeWidth, sizeHeight, sizeGusset, sizeUnit, fullName, company, email, phone, debouncedUpdate, isReady]);
+  }, [product, customQuantity, dimensions.width, dimensions.height, dimensions.gusset, dimensions.unit, fullName, company, email, phone, debouncedUpdate, isReady]);
 
   const validate = () => {
     const nextErrors = {};
@@ -81,19 +80,19 @@ export default function QuoteModal({ isOpen, onClose, product }) {
     } else if (parseInt(customQuantity.trim(), 10) < 1000) {
       nextErrors.quantity = "Custom quantity must be at least 1000.";
     }
-    if (!sizeWidth.trim()) {
+    if (!(dimensions.width || '').trim()) {
       nextErrors.sizeWidth = "Please enter width.";
-    } else if (!/^\d+(\.\d+)?$/.test(sizeWidth.trim())) {
+    } else if (!/^\d+(\.\d+)?$/.test((dimensions.width || '').trim())) {
       nextErrors.sizeWidth = "Width must be a valid number.";
     }
-    if (!sizeHeight.trim()) {
+    if (!(dimensions.height || '').trim()) {
       nextErrors.sizeHeight = "Please enter height.";
-    } else if (!/^\d+(\.\d+)?$/.test(sizeHeight.trim())) {
+    } else if (!/^\d+(\.\d+)?$/.test((dimensions.height || '').trim())) {
       nextErrors.sizeHeight = "Height must be a valid number.";
     }
-    if (!sizeGusset.trim()) {
+    if (!(dimensions.gusset || '').trim()) {
       nextErrors.sizeGusset = "Please enter gusset.";
-    } else if (!/^\d+(\.\d+)?$/.test(sizeGusset.trim())) {
+    } else if (!/^\d+(\.\d+)?$/.test((dimensions.gusset || '').trim())) {
       nextErrors.sizeGusset = "Gusset must be a valid number.";
     }
     if (!email.trim()) {
@@ -129,10 +128,12 @@ export default function QuoteModal({ isOpen, onClose, product }) {
       product_name: product?.title || '',
       category: 'Custom Bags',
       quantity: customQuantity,
-      size_width: sizeWidth,
-      size_height: sizeHeight,
-      size_gusset: sizeGusset,
-      size_unit: sizeUnit,
+      dimensions: {
+        width: dimensions.width || '',
+        height: dimensions.height || '',
+        gusset: dimensions.gusset || '',
+        unit: dimensions.unit || '',
+      },
       description: product?.title || '',
       isCampaignPage: true,
       campaignId: 'custom-bags-modal',
@@ -147,10 +148,12 @@ export default function QuoteModal({ isOpen, onClose, product }) {
         email: email,
         phone: phone,
         quantity: customQuantity,
-        size_width: sizeWidth,
-        size_height: sizeHeight,
-        size_gusset: sizeGusset,
-        size_unit: sizeUnit,
+        dimensions: {
+          width: dimensions.width || '',
+          height: dimensions.height || '',
+          gusset: dimensions.gusset || '',
+          unit: dimensions.unit || '',
+        },
         product: product?.title || '',
         campaignId: 'custom-bags-modal',
       },
@@ -217,34 +220,34 @@ export default function QuoteModal({ isOpen, onClose, product }) {
               <div className="grid grid-cols-[1fr_1fr_1fr_100px] gap-2">
                 <div>
                   <input
-                    value={sizeWidth}
-                    onChange={(e) => setSizeWidth(e.target.value)}
+                    value={dimensions.width}
+                    onChange={(e) => setDimensions((p) => ({ ...p, width: e.target.value }))}
                     placeholder="Width"
                     className={`w-full rounded-lg border px-3 py-2 text-sm outline-none ${errors.sizeWidth ? 'border-red-500' : 'border-slate-300'}`}
                   />
                 </div>
                 <div>
                   <input
-                    value={sizeHeight}
-                    onChange={(e) => setSizeHeight(e.target.value)}
+                    value={dimensions.height}
+                    onChange={(e) => setDimensions((p) => ({ ...p, height: e.target.value }))}
                     placeholder="Height"
                     className={`w-full rounded-lg border px-3 py-2 text-sm outline-none ${errors.sizeHeight ? 'border-red-500' : 'border-slate-300'}`}
                   />
                 </div>
                 <div>
                   <input
-                    value={sizeGusset}
-                    onChange={(e) => setSizeGusset(e.target.value)}
+                    value={dimensions.gusset}
+                    onChange={(e) => setDimensions((p) => ({ ...p, gusset: e.target.value }))}
                     placeholder="Gusset"
                     className={`w-full rounded-lg border px-3 py-2 text-sm outline-none ${errors.sizeGusset ? 'border-red-500' : 'border-slate-300'}`}
                   />
                 </div>
                 <select
-                  value={sizeUnit}
-                  onChange={(e) => setSizeUnit(e.target.value)}
+                  value={dimensions.unit}
+                  onChange={(e) => setDimensions((p) => ({ ...p, unit: e.target.value }))}
                   className="rounded-lg border border-slate-300 bg-white px-2 py-2 text-sm outline-none"
                 >
-                  <option value="In">In</option>
+                  <option value="Inch">In</option>
                   <option value="Cm">Cm</option>
                   <option value="Mm">Mm</option>
                 </select>
@@ -295,7 +298,7 @@ export default function QuoteModal({ isOpen, onClose, product }) {
             </div>
 
             <button
-              {...(customQuantity && sizeWidth && sizeHeight && sizeGusset && fullName && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
+              {...(customQuantity && dimensions.width && dimensions.height && dimensions.gusset && fullName && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
               type="submit"
               disabled={isSubmitting}
               className="w-full rounded-full bg-[#00ADEE] px-6 py-3 text-base font-semibold text-white transition hover:bg-sky-700 disabled:opacity-60 mt-6"
