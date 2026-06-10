@@ -1,0 +1,100 @@
+name: Trigger Vercel Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'deploy-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  trigger-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Calculate stats and send to API
+        run: |
+          # Get proper stats for both regular and merge commits
+          if git rev-parse --verify HEAD^2 > /dev/null 2>&1; then
+            # Merge commit - compare with first parent
+            STATS=$(git diff --numstat HEAD^1 HEAD)
+          else
+            # Regular commit
+            STATS=$(git diff --numstat HEAD^1 HEAD)
+          fi
+          
+          FILES_CHANGED=$(echo "$STATS" | wc -l)
+          ADDITIONS=$(echo "$STATS" | awk '{sum+=$1} END {print (sum == "" ? 0 : sum)}')
+          DELETIONS=$(echo "$STATS" | awk '{sum+=$2} END {print (sum == "" ? 0 : sum)}')
+          
+          # Format commit time properly
+          COMMIT_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          
+          # Send deployment data to API and capture response
+          echo "Sending deployment data to API..."
+          PAYLOAD='{
+            "username": "${{ github.actor }}",
+            "commitId": "${{ github.sha }}",
+            "commitMessage": "${{ github.event.head_commit.message }}",
+            "commitTime": "'$COMMIT_TIME'",
+            "repositoryUrl": "https://github.com/${{ github.repository }}",
+            "filesChanged": '$FILES_CHANGED',
+            "additions": '$ADDITIONS',
+            "deletions": '$DELETIONS'
+          }'
+          echo "Payload to be sent: $PAYLOAD"
+          RESPONSE=$(curl -s -X POST https://git-trigger.vercel.app/api/trigger \
+            -H "Content-Type: application/json" \
+            -d "$PAYLOAD")
+
+          # Keep trigger flow non-blocking for any actor.
+          if echo "$RESPONSE" | grep -q '"error"'; then
+            echo "API reported an error but workflow will continue: $RESPONSE"
+          fi
+          
+          echo ""
+          echo "Deployment data sent successfully!"
+          echo "Response: $RESPONSE"
+          echo "Username: ${{ github.actor }}"
+          echo "Commit ID: ${{ github.sha }}"
+          echo "Files Changed: $FILES_CHANGED"
+          echo "Additions: $ADDITIONS"
+          echo "Deletions: $DELETIONS"
+
+      - name: Update deploy trigger file
+        run: |
+          touch deploy-trigger.txt
+          echo "Deploy triggered by ${{ github.actor }} at $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> deploy-trigger.txt
+          echo "Commit ID: ${{ github.sha }}" >> deploy-trigger.txt
+          echo "Commit Message: ${{ github.event.head_commit.message }}" >> deploy-trigger.txt
+          
+          # Get stats again for file
+          if git rev-parse --verify HEAD^2 > /dev/null 2>&1; then
+            STATS=$(git diff --numstat HEAD^1 HEAD)
+          else
+            STATS=$(git diff --numstat HEAD^1 HEAD)
+          fi
+          
+          FILES_CHANGED=$(echo "$STATS" | wc -l)
+          ADDITIONS=$(echo "$STATS" | awk '{sum+=$1} END {print (sum == "" ? 0 : sum)}')
+          DELETIONS=$(echo "$STATS" | awk '{sum+=$2} END {print (sum == "" ? 0 : sum)}')
+          
+          echo "Files Changed: $FILES_CHANGED" >> deploy-trigger.txt
+          echo "Additions: +$ADDITIONS" >> deploy-trigger.txt
+          echo "Deletions: -$DELETIONS" >> deploy-trigger.txt
+          echo "---" >> deploy-trigger.txt
+          
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deploy-trigger.txt
+          git commit -m "Trigger Vercel deployment [skip ci]" || echo "No deploy-trigger changes to commit"
+          git push
