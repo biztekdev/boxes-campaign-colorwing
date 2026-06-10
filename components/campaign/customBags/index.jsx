@@ -21,7 +21,7 @@ function CustomBagsCom({ data }) {
   return (
     <div className="bg-white">
       <CustomBagsHeader />
-      
+
       <div
         id="custom-quote-form"
         className="flex m-auto px-4 md:px-10 2xl:px-20 gap-8 mt-10 bg-white flex-col-reverse lg:flex-row scroll-mt-20"
@@ -32,7 +32,7 @@ function CustomBagsCom({ data }) {
         <div className="lg:w-[50%] xl:w-[40%] 2xl:w-[40%]">
           <FormWrapper data={data?.formData} />
         </div>
-        
+
       </div>
       <InfluenceCustomers data={data?.influencerData} />
       {data?.influencerData?.callSection && <CallSection data={data.influencerData.callSection} />}
@@ -41,9 +41,9 @@ function CustomBagsCom({ data }) {
       <Finishes data={data?.finishes} />
       <Testimonials data={data?.testimonials} />
       <FaqSection data={data?.faqs} />
-     
-       <CompaignFooter />
-    
+
+      <CompaignFooter />
+
     </div>
   );
 }
@@ -51,9 +51,9 @@ function CustomBagsCom({ data }) {
 export default CustomBagsCom;
 
 export const customBagsSeoData = {
-  title: "Custom Bags - Premium Packaging Solutions | ColorWing",
+  title: "Custom Boxes & Wholesale Packaging Solutions",
   description:
-    "Get premium custom bags for your products. High-quality, durable packaging with custom designs. Fast turnaround and competitive pricing. Order now!",
+    "Custom boxes and wholesale packaging for retail, eCommerce, and product brands. Available in custom sizes, styles, and premium printing options.",
   keywords:
     "custom bags, bag packaging, custom packaging, custom bags wholesale, premium packaging, custom design bags",
   canonicalUrl: "https://colorwing.com/deals/custom-bags",
@@ -62,9 +62,9 @@ export const customBagsSeoData = {
 };
 
 export const customBagsaSeoData = {
-  title: "Custom Bag Packaging With Logo Printing",
+  title: "Custom Boxes & Wholesale Packaging Solutions",
   description:
-    "Order custom bags with logo, ziplock seals, and resealable styles. Wholesale custom bag packaging for brands, startups, and retail products.",
+    "Custom boxes and wholesale packaging for retail, eCommerce, and product brands. Available in custom sizes, styles, and premium printing options.",
   keywords:
     "custom bags, bag packaging, custom packaging, custom bags wholesale, premium packaging, custom design bags",
   canonicalUrl: "https://colorwing.com/deals/custom-bags-a",

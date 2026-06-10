@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { useSessionTracking } from '@/hooks/useSessionTracking';
@@ -46,7 +46,7 @@ function normalizePhoneNumber(value) {
 export default function Form() {
   const [selectedStyle, setSelectedStyle] = useState(styles[0]);
   const [customQuantity, setCustomQuantity] = useState("");
-  const [dimensions, setDimensions] = useState({ width: "", height: "", gusset: "", unit: "Inch" });
+  const [dimensions, setDimensions] = useState({ width: "", height: "", depth: "", unit: "Inch" });
   const [message, setMessage] = useState("");
   const [fullName, setFullName] = useState("");
   const [company, setCompany] = useState("");
@@ -76,18 +76,18 @@ export default function Form() {
         dimensions: {
           width: dimensions.width || '',
           height: dimensions.height || '',
-          gusset: dimensions.gusset || '',
+          depth: dimensions.depth || '',
           unit: dimensions.unit || '',
         },
         note: message || '',
         campaignId: 'custom-boxes',
       };
-      const hasSessionData = [selectedStyle, customQuantity, dimensions.width, dimensions.height, dimensions.gusset, fullName, email, phone].some((v) => v && v !== '');
+      const hasSessionData = [selectedStyle, customQuantity, dimensions.width, dimensions.height, dimensions.depth, fullName, email, phone].some((v) => v && v !== '');
       if (hasSessionData) {
         debouncedUpdate(sessionData);
       }
     }
-  }, [selectedStyle, customQuantity, dimensions.width, dimensions.height, dimensions.gusset, dimensions.unit, message, fullName, company, email, phone, debouncedUpdate, isReady]);
+  }, [selectedStyle, customQuantity, dimensions.width, dimensions.height, dimensions.depth, dimensions.unit, message, fullName, company, email, phone, debouncedUpdate, isReady]);
 
   const validate = () => {
     const nextErrors = {};
@@ -108,10 +108,10 @@ export default function Form() {
     } else if (!/^\d+(\.\d+)?$/.test((dimensions.height || '').trim())) {
       nextErrors.sizeHeight = "Height must be a valid number.";
     }
-    if (!(dimensions.gusset || '').trim()) {
-      nextErrors.sizeGusset = "Please enter gusset.";
-    } else if (!/^\d+(\.\d+)?$/.test((dimensions.gusset || '').trim())) {
-      nextErrors.sizeGusset = "Gusset must be a valid number.";
+    if (!(dimensions.depth || '').trim()) {
+      nextErrors.sizeDepth = "Please enter depth.";
+    } else if (!/^\d+(\.\d+)?$/.test((dimensions.depth || '').trim())) {
+      nextErrors.sizeDepth = "Depth must be a valid number.";
     }
     if (!email.trim()) {
       nextErrors.email = "Please enter your email.";
@@ -149,7 +149,7 @@ export default function Form() {
       dimensions: {
         width: dimensions.width || '',
         height: dimensions.height || '',
-        gusset: dimensions.gusset || '',
+        depth: dimensions.depth || '',
         unit: dimensions.unit || '',
       },
       description: message,
@@ -166,7 +166,7 @@ export default function Form() {
         dimensions: {
           width: dimensions.width || '',
           height: dimensions.height || '',
-          gusset: dimensions.gusset || '',
+          depth: dimensions.depth || '',
           unit: dimensions.unit || '',
         },
         campaignId: 'custom-boxes',
@@ -205,133 +205,133 @@ export default function Form() {
   return (
     <form className='mt-4' onSubmit={handleSubmit}>
       <h2 className='text-[20px] xl:text-[25px] 2xl:text-[30px] font-bold text-[#000000] leading-tight SFProDisplay'>Custom Boxes That Upscale Your Brand Recognition</h2>
-      <p className='text-[12px] xl:text-[14px] font-normal mt-3 text-[#535353]'>With our custom-printed boxes, your brand’s unique identity is maintained, and your brand authority is established.  Secure your brand’s market position with premium Custom Boxes designed for integrity and high-impact retail presence. 
-</p>
+      <p className='text-[12px] xl:text-[14px] font-normal mt-3 text-[#535353]'>With our custom-printed boxes, your brand’s unique identity is maintained, and your brand authority is established.  Secure your brand’s market position with premium Custom Boxes designed for integrity and high-impact retail presence.
+      </p>
 
       <div className='pb-4 px-8 border mt-2 rounded-[10px] border-[#8D8989]'>
-         <div className='mt-4 grid gap-4'>
-        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Select Bag Style</label>
-        <select
-          value={selectedStyle}
-          onChange={(e) => setSelectedStyle(e.target.value)}
-          className='w-full rounded-[10px] border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-sky-500'
-        >
-          {styles.map((style) => (
-            <option key={style} value={style}>
-              {style}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className='mt-2'>
-        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Quantity</label>
-        <input
-          value={customQuantity}
-          onChange={(e) => setCustomQuantity(e.target.value)}
-          placeholder='Enter your desired quantity (min 1000)'
-          className={`mt-2 w-full rounded-[10px] border border-[#C0BDBD] px-4 py-3 text-slate-900 outline-none ${errors.quantity ? 'border-red-500' : 'border-slate-300'}`}
-        />
-      </div>
-
-      <div className='mt-2'>
-        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Size</label>
-        <div className='mt-2 grid gap-4 sm:grid-cols-[1fr_1fr_1fr_120px] items-end'>
-          <div>
-            <input
-              value={dimensions.width}
-              onChange={(e) => setDimensions((p) => ({ ...p, width: e.target.value }))}
-              placeholder='Width'
-              className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeWidth ? 'border-red-500' : 'border-slate-300'}`}
-            />
-          </div>
-          <div>
-            <input
-              value={dimensions.height}
-              onChange={(e) => setDimensions((p) => ({ ...p, height: e.target.value }))}
-              placeholder='Height'
-              className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeHeight ? 'border-red-500' : 'border-slate-300'}`}
-            />
-          </div>
-          <div>
-            <input
-              value={dimensions.gusset}
-              onChange={(e) => setDimensions((p) => ({ ...p, gusset: e.target.value }))}
-              placeholder='Gusset'
-              className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeGusset ? 'border-red-500' : 'border-slate-300'}`}
-            />
-          </div>
-          <div>
-            <select
-              value={dimensions.unit}
-              onChange={(e) => setDimensions((p) => ({ ...p, unit: e.target.value }))}
-              className='w-full rounded-[10px] border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none'
-            >
-              <option value='Inch'>in</option>
-              <option value='Cm'>cm</option>
-              <option value='Mm'>mm</option>
-            </select>
-          </div>
+        <div className='mt-4 grid gap-4'>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Select Bag Style</label>
+          <select
+            value={selectedStyle}
+            onChange={(e) => setSelectedStyle(e.target.value)}
+            className='w-full rounded-[10px] border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-sky-500'
+          >
+            {styles.map((style) => (
+              <option key={style} value={style}>
+                {style}
+              </option>
+            ))}
+          </select>
         </div>
-      </div>
 
-      <div className='mt-2'>
-        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Additional details</label>
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder='Anything else we should know'
-          className='mt-2 w-full rounded-[10px] border border-slate-300 px-4 py-3 text-slate-900 outline-none resize-none min-h-[120px]'
-        />
-      </div>
-
-      <div className='mt-2 grid gap-4 md:grid-cols-2'>
-        <div>
-          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Full Name</label>
+        <div className='mt-2'>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Quantity</label>
           <input
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            placeholder='Full Name'
-            className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.fullName ? 'border-red-500' : 'border-slate-300'}`}
+            value={customQuantity}
+            onChange={(e) => setCustomQuantity(e.target.value)}
+            placeholder='Enter your desired quantity (min 1000)'
+            className={`mt-2 w-full rounded-[10px] border border-[#C0BDBD] px-4 py-3 text-slate-900 outline-none ${errors.quantity ? 'border-red-500' : 'border-slate-300'}`}
           />
         </div>
-        <div>
-          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Email</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder='Email'
-            className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.email ? 'border-red-500' : 'border-slate-300'}`}
+
+        <div className='mt-2'>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Size</label>
+          <div className='mt-2 grid gap-4 sm:grid-cols-[1fr_1fr_1fr_120px] items-end'>
+            <div>
+              <input
+                value={dimensions.width}
+                onChange={(e) => setDimensions((p) => ({ ...p, width: e.target.value }))}
+                placeholder='Width'
+                className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeWidth ? 'border-red-500' : 'border-slate-300'}`}
+              />
+            </div>
+            <div>
+              <input
+                value={dimensions.height}
+                onChange={(e) => setDimensions((p) => ({ ...p, height: e.target.value }))}
+                placeholder='Height'
+                className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeHeight ? 'border-red-500' : 'border-slate-300'}`}
+              />
+            </div>
+            <div>
+              <input
+                value={dimensions.depth}
+                onChange={(e) => setDimensions((p) => ({ ...p, depth: e.target.value }))}
+                placeholder='Depth'
+                className={`w-full rounded-[10px] border px-4 py-2.5 text-slate-900 outline-none ${errors.sizeDepth ? 'border-red-500' : 'border-slate-300'}`}
+              />
+            </div>
+            <div>
+              <select
+                value={dimensions.unit}
+                onChange={(e) => setDimensions((p) => ({ ...p, unit: e.target.value }))}
+                className='w-full rounded-[10px] border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none'
+              >
+                <option value='Inch'>in</option>
+                <option value='Cm'>cm</option>
+                <option value='Mm'>mm</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div className='mt-2'>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Additional details</label>
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder='Anything else we should know'
+            className='mt-2 w-full rounded-[10px] border border-slate-300 px-4 py-3 text-slate-900 outline-none resize-none min-h-[120px]'
           />
         </div>
-      </div>
 
-      <div className='mt-2'>
-        <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Phone</label>
-        <input
-          type='tel'
-          value={formatPhoneNumber(phone)}
-          onChange={(e) => setPhone(e.target.value)}
-          placeholder='+1 (123) 456-7890'
-          className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.phone ? 'border-red-500' : 'border-slate-300'}`}
-        />
-      </div>
-
-    
-
-      <div className='mt-4'>
-        <button
-          {...(customQuantity && dimensions.width && dimensions.height && dimensions.gusset && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
-          type='submit'
-          disabled={isSubmitting}
-          className='inline-flex w-full items-center justify-center rounded-full bg-[#00ADEE] px-6 py-4 text-[14px] md:text-[16px] font-bold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60'
-        >
-          {isSubmitting ? 'Submitting…' : 'Submit Request'}
-        </button>
-      </div>
+        <div className='mt-2 grid gap-4 md:grid-cols-2'>
+          <div>
+            <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Full Name</label>
+            <input
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              placeholder='Full Name'
+              className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.fullName ? 'border-red-500' : 'border-slate-300'}`}
+            />
+          </div>
+          <div>
+            <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Email</label>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder='Email'
+              className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.email ? 'border-red-500' : 'border-slate-300'}`}
+            />
+          </div>
         </div>
 
-     
+        <div className='mt-2'>
+          <label className='block text-[14px] md:text-[16px]  xl:text-[18px] font-medium text-black'>Phone</label>
+          <input
+            type='tel'
+            value={formatPhoneNumber(phone)}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder='+1 (123) 456-7890'
+            className={`mt-2 w-full rounded-[10px] border px-4 py-3 text-slate-900 outline-none ${errors.phone ? 'border-red-500' : 'border-slate-300'}`}
+          />
+        </div>
+
+
+
+        <div className='mt-4'>
+          <button
+            {...(customQuantity && dimensions.width && dimensions.height && dimensions.depth && email && phone && phone !== '+1' ? { id: 'quote-submit' } : {})}
+            type='submit'
+            disabled={isSubmitting}
+            className='inline-flex w-full items-center justify-center rounded-full bg-[#00ADEE] px-6 py-4 text-[14px] md:text-[16px] font-bold text-white transition hover:bg-sky-700 disabled:cursor-not-allowed disabled:opacity-60'
+          >
+            {isSubmitting ? 'Submitting…' : 'Submit Request'}
+          </button>
+        </div>
+      </div>
+
+
     </form>
   );
 }
